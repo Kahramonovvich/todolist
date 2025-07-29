@@ -1,7 +1,7 @@
-export default function page() {
+import LoginComponent from "@/components/LoginComponent";
+
+export default function HomePage() {
   return (
-    <div className="home">
-      
-    </div>
-  );
-};
+    <LoginComponent />
+  )
+}
