@@ -46,9 +46,6 @@ export default function RootLayout({ children }) {
     return () => unsubscribe();
   }, []);
 
-  console.log("API KEY:", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-  console.log(currentUser);
-
   return (
     <html lang="en">
       <body className="bg-gray-50 dark:bg-gray-900">
