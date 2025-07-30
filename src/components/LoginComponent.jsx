@@ -22,6 +22,9 @@ const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
     prompt: 'select_account'
 });
+githubProvider.setCustomParameters({
+    prompt: 'select_account'
+});
 
 export default function LoginComponent() {
 
@@ -48,12 +51,26 @@ export default function LoginComponent() {
             const userDocRef = doc(db, 'users', user.uid);
             const userSnap = await getDoc(userDocRef);
             await updateDoc(userDocRef, { isActive: true });
-            if (userSnap.exists()) {
+            if (!userSnap.exists()) {
+                await setDoc(userDocRef, {
+                    uid: user.uid,
+                    email: user.email || '',
+                    firstName: user.displayName?.split(' ')[0] || '',
+                    lastName: user.displayName?.split(' ')[1] || '',
+                    job: '',
+                    isActive: true,
+                    status: 'unverified',
+                    createdAt: new Date(),
+                    isAdmin: false
+                });
+                await setCookie('user_status', 'unverified');
+                router.push('/wait');
+            } else {
+                await updateDoc(userDocRef, { isActive: true });
                 const userData = userSnap.data();
-                const status = userData.status;
-                await setCookie('user_status', status);
+                await setCookie('user_status', userData.status);
+                router.push('/dashboard');
             };
-            router.push('/dashboard');
         } catch (err) {
             console.error('OAuth error:', err);
         } finally {
@@ -98,6 +115,7 @@ export default function LoginComponent() {
                 lastName,
                 job,
                 isActive: true,
+                isAdmin: false,
                 status: 'unverified',
                 createdAt: new Date()
             });
