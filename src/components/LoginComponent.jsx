@@ -58,7 +58,7 @@ export default function LoginComponent() {
                     status: 'unverified',
                     createdAt: new Date(),
                     isAdmin: false,
-                    phoneNumber: user.phoneNumber
+                    phoneNumber: user.phoneNumber || ''
                 });
                 await setCookie('user_status', 'unverified');
                 router.push('/wait');
