@@ -22,9 +22,6 @@ const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
     prompt: 'select_account'
 });
-githubProvider.setCustomParameters({
-    prompt: 'select_account'
-});
 
 export default function LoginComponent() {
 
@@ -50,7 +47,6 @@ export default function LoginComponent() {
             await setCookie('firebase_token', token);
             const userDocRef = doc(db, 'users', user.uid);
             const userSnap = await getDoc(userDocRef);
-            await updateDoc(userDocRef, { isActive: true });
             if (!userSnap.exists()) {
                 await setDoc(userDocRef, {
                     uid: user.uid,
