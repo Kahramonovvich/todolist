@@ -37,7 +37,7 @@ export default function WaitPage() {
     }, [router]);
 
     return (
-        <div className="wait absolute w-full min-h-screen z-50 bg-black top-0 left-0 flex items-center justify-center">
+        <div className="wait absolute w-full min-h-screen z-50 bg-black top-0 left-0 flex items-center justify-center px-4">
             <p className="text-2xl text-white animate-pulse">
                 {checking ? 'Checking status...' : 'Please wait until admin verifies your account'}
             </p>

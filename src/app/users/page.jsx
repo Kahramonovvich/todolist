@@ -6,7 +6,7 @@ import { useMyContexts } from '../layout'
 import { formatPhone } from '@/utils/utils'
 
 export default function Page() {
-    
+
     const { users } = useMyContexts();
 
     return (
@@ -18,14 +18,13 @@ export default function Page() {
                         key={user.uid}
                         className="bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-2xl p-6 shadow-xl border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col items-center text-center"
                     >
-                        <div className="w-24 h-24 flex items-center justify-center rounded-full overflow-hidden border-4 border-blue-500 shadow-md mb-4">
+                        <div className="w-24 h-24 relative flex items-center justify-center rounded-full overflow-hidden border-4 border-blue-500 shadow-md mb-4">
                             {user.img ? (
                                 <Image
+                                    fill
                                     src={user.img}
                                     alt={user.firstName || 'User'}
-                                    width={96}
-                                    height={96}
-                                    className="object-cover w-full h-full"
+                                    style={{ objectFit: 'cover' }}
                                 />
                             ) : (
                                 <AccountCircleIcon className="text-gray-500 w-full h-full" style={{ fontSize: 96 }} />
