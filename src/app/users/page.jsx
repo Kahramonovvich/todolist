@@ -4,6 +4,7 @@ import Image from "next/image"
 import { jobs } from "@/constants/constants"
 import { useMyContexts } from '../layout'
 import { formatPhone } from '@/utils/utils'
+import { FaInstagram, FaTelegram } from 'react-icons/fa'
 
 export default function Page() {
 
@@ -19,12 +20,14 @@ export default function Page() {
                         className="bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-2xl p-6 shadow-xl border border-gray-700 hover:border-blue-500 transition duration-300 flex flex-col items-center text-center"
                     >
                         <div className="w-24 h-24 relative flex items-center justify-center rounded-full overflow-hidden border-4 border-blue-500 shadow-md mb-4">
-                            {user.img ? (
+                            {user.avatar ? (
                                 <Image
                                     fill
-                                    src={user.img}
+                                    src={user.avatar}
                                     alt={user.firstName || 'User'}
                                     style={{ objectFit: 'cover' }}
+                                    unoptimized={true}
+                                    className='p-1 rounded-full'
                                 />
                             ) : (
                                 <AccountCircleIcon className="text-gray-500 w-full h-full" style={{ fontSize: 96 }} />
@@ -38,25 +41,27 @@ export default function Page() {
                         <div className="text-gray-400 text-sm mt-1">{user.email}</div>
                         {user.phoneNumber && <div className="text-gray-400 text-sm">📞 {formatPhone(user.phoneNumber)}</div>}
 
-                        <div className="flex items-center justify-center gap-2 mt-1">
+                        <div className="flex items-center flex-col gap-y-1 mt-1">
                             {user.telegram && (
                                 <a
                                     href={`https://t.me/${user.telegram}`}
-                                    className="text-blue-400 hover:underline text-sm"
+                                    className="text-blue-400 hover:underline flex items-center gap-x-1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    @Telegram
+                                    <FaTelegram className='w-5 h-5' />
+                                    <span className='capitalize'>{user.telegram}</span>
                                 </a>
                             )}
                             {user.instagram && (
                                 <a
                                     href={`https://instagram.com/${user.instagram}`}
-                                    className="text-pink-400 hover:underline text-sm"
+                                    className="text-pink-400 hover:underline flex items-center gap-x-1"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                 >
-                                    @Instagram
+                                    <FaInstagram className='w-5 h-5' />
+                                    <span className='capitalize'>{user.instagram}</span>
                                 </a>
                             )}
                         </div>

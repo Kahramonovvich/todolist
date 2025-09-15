@@ -19,4 +19,12 @@ export const jobs = [
         id: 'mobile developer',
         label:'Mobile Developer'
     },
+    {
+        id: 'manager',
+        label:'Office Manager'
+    },
+    {
+        id: 'operator',
+        label:'Operator'
+    },
 ];

@@ -4,9 +4,10 @@ import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/Nav";
 import NextTopLoader from "nextjs-toploader";
 import { createContext, useContext, useEffect, useState } from 'react';
-import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import LoadingModal from '@/components/LoadingModal';
 
 const NewContext = createContext();
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
   const [users, setUsers] = useState([]);
   const [unverifiedUsers, setUnverifiedUsers] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -58,7 +60,10 @@ export default function RootLayout({ children }) {
           users,
           unverifiedUsers,
           currentUser,
+          isLoading,
+          setIsLoading,
         }}>
+          <LoadingModal />
           <Navbar />
           <div className="flex">
             <Sidebar />
